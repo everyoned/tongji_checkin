@@ -110,9 +110,9 @@ if __name__ == "__main__":
     # 检查是否今日已打卡
     if ck.has_done():
         print("✅ 今日已打卡，无须重复打卡")
-        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=已为{ck.name[0]}同学成功打卡！%0A{now}")
+        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp={ck.name[0]}同学已经自己打过卡啦！%0A{now}")
     else:
         log = ck.checkin()
         print('✅ 打卡完成')
-        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title=打卡通知&desp=已为{ck.name[0]}同学成功打卡！%0A{now}")
+        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=已为{ck.name[0]}同学成功打卡！%0A{now}")
         print(f'log: {log}')
