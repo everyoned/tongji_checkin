@@ -23,16 +23,16 @@ class Checkin:
             'Referer': 'https://servicewechat.com/wx427cf6b5481c866a/54/page-frame.html',
             'Accept-Encoding': 'gzip, deflate, br',
         }
-        print('✔已新建打卡实例')
+        print('✅ 已新建打卡实例')
 
     def get_info(self):
         self.info_url = f'{self.base_url}/tblStudentUsers/my'
-        print("⏩正在获取个人信息...")
+        print("⏩ 正在获取个人信息...")
         response = requests.get(self.info_url, headers=self.headers, verify=self.debug)
         try:
             self.info = json.loads(response.text)['data']
             self.name = self.info["studentName"]
-            print(f'✔{self.name}同学，你好~')
+            print(f'✅ {self.name}同学，你好~')
             return self.info
         except:
             print("❌ 获取个人信息出错，退出！")
@@ -104,8 +104,8 @@ if __name__ == "__main__":
     ck.get_info()
     # 检查是否今日已打卡
     if ck.has_done():
-        print("✔ 今日已打卡，无须重复打卡")
+        print("✅ 今日已打卡，无须重复打卡")
     else:
         log = ck.checkin()
-        print('✔ 打卡完成')
+        print('✅ 打卡完成')
         print(f'log: {log}')
