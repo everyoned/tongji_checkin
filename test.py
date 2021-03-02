@@ -95,6 +95,7 @@ if __name__ == "__main__":
     parser.add_argument('--locLat', type=str, default=None)
     parser.add_argument('--locLng', type=str, default=None)
     args = parser.parse_args()
+    print(f'[{(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}]')
     print("用户信息：", args)
     # 初始化打卡类
     ck = Checkin(args.token, args.locLat, args.locLng)
