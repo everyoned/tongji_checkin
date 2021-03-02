@@ -27,8 +27,10 @@ jobs:
     - name: Test
       env:
           token: ${{ secrets.TOKEN }}
+          locLat: ${{ secrets.locLat }}
+          locLng: ${{ secrets.locLng }}
       run: |
-        python test.py --token $token
+        python test.py --token $token --locLat $locLat --locLng $locLng
 
 
 
