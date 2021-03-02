@@ -4,7 +4,11 @@ import datetime
 import argparse
 import sys
 
-
+def out(msg):
+    requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title=打卡通知&desp=打卡失败，原因如下：%0A{msg}")
+    sys.exit()
+    
+    
 class Checkin:
     def __init__(self, token, locLat, locLng):
         print("🚌 打卡任务启动")
@@ -36,7 +40,7 @@ class Checkin:
             return self.info
         except:
             print("❌ 获取个人信息出错，退出！")
-            sys.exit()
+            out("获取个人信息出错")
 
     def has_done(self):
         print("⏩ 正在检查今日打卡状态...")
@@ -51,7 +55,7 @@ class Checkin:
                 return False
         except:
             print("❌ 检查状态出错，退出！")
-            sys.exit()
+            out("检查状态出错")
 
     def checkin(self):
         self.checkin_url = f'{self.base_url}/yqfkLogDailyreport/v3'
@@ -88,7 +92,7 @@ class Checkin:
             return json.loads(response.text)
         except:
             print("❌ 打卡失败")
-            sys.exit()
+            out("发送打卡消息错误")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='manual to this script')
@@ -96,7 +100,8 @@ if __name__ == "__main__":
     parser.add_argument('--locLat', type=str, default=None)
     parser.add_argument('--locLng', type=str, default=None)
     args = parser.parse_args()
-    print(f'[{(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}]')
+    now = f'[{(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}]'
+    print(now)
     print("用户信息：", args)
     # 初始化打卡类
     ck = Checkin(args.token, args.locLat, args.locLng)
@@ -105,7 +110,9 @@ if __name__ == "__main__":
     # 检查是否今日已打卡
     if ck.has_done():
         print("✅ 今日已打卡，无须重复打卡")
+        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title=打卡通知&desp=已为{ck.name[0]}同学成功打卡！%0A{now}")
     else:
         log = ck.checkin()
         print('✅ 打卡完成')
+        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title=打卡通知&desp=已为{ck.name[0]}同学成功打卡！%0A{now}")
         print(f'log: {log}')
