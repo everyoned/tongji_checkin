@@ -10,7 +10,8 @@ class Checkin:
         print("🚌 打卡任务启动")
         self.name = 0
         self.location = (locLat, locLng)
-        self.debug = not True
+        # debug 为了抓包设置
+        self.debug = not False
         self.base_url = 'https://tjxsfw.chisai.tech/api/school_tjxsfw_student'
         self.info = 0
         self.headers = {
