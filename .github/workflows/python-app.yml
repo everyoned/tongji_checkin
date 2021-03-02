@@ -30,7 +30,7 @@ jobs:
           locLat: ${{ secrets.LOCLAT }}
           locLng: ${{ secrets.LOCLNG }}
       run: |
-        python test.py --token $token --locLat $LOCLAT --locLng $LOCLNG
+        python test.py --token $token --locLat $locLat --locLng $locLng
 
 
 
