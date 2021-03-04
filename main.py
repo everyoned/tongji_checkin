@@ -114,5 +114,5 @@ if __name__ == "__main__":
     else:
         log = ck.checkin()
         print('✅ 打卡完成')
-        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=%0A已为{ck.name[0]}同学成功打卡~%0A{now}")
+        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=%0A已为{ck.name[0]}同学打卡成功啦~%0A{now}")
         print(f'log: {log}')
