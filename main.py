@@ -5,7 +5,19 @@ import argparse
 import sys
 
 def out(msg):
-    requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=%0A打卡失败，原因如下：%0A{msg}")
+    today = datetime.datetime.now()
+    today = today.strftime("%Y-%m-%d %H:%M:%S")
+    data = {
+        "touser":"@all",
+        "msgtype" : "textcard",
+        "agentid" : 1000005,
+        "textcard": {
+            "title" : "打卡通知",
+            "description" : f'<div class="normal">{today}</div><div class="highlight">打卡出错</div><div class="highlight">{msg}</div>',
+            "url" : "https://",
+            "btntxt":"更多"},
+        }
+    r = requests.post("http://api.cblueu.cn/push/", data=json.dumps(data))
     sys.exit()
     
     
@@ -94,6 +106,19 @@ class Checkin:
             print("❌ 打卡失败")
             out("发送打卡消息错误")
 
+def msg_template(msg):
+    data = {
+        "touser":"@all",
+        "msgtype" : "textcard",
+        "agentid" : 1000005,
+        "textcard": {
+            "title" : "打卡通知",
+            "description" : f'<div class="normal">{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</div><div class="highlight">{msg}</div>',
+            "url" : "https://",
+            "btntxt":"更多"},
+        }
+    return data
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='manual to this script')
     parser.add_argument('--token', type=str, default=None)
@@ -110,9 +135,9 @@ if __name__ == "__main__":
     # 检查是否今日已打卡
     if ck.has_done():
         print("✅ 今日已打卡，无须重复打卡")
-        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=%0A{ck.name[0]}同学已经自己打过卡啦~%0A{now}")
+        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'{ck.name[0]}同学已经自己打过卡啦~')))
     else:
         log = ck.checkin()
         print('✅ 打卡完成')
-        requests.get(f"https://sctapi.ftqq.com/SCT14222TFYleYPa6klmj7pCDeThxhngc.send?title===打卡通知==&desp=%0A已为{ck.name[0]}同学打卡成功啦~%0A{now}")
+        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为{ck.name[0]}同学打卡成功啦~')))
         print(f'log: {log}')
