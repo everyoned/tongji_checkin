@@ -10,7 +10,7 @@ def out(msg):
     data = {
         "touser":"@all",
         "msgtype" : "textcard",
-        "agentid" : 1000005,
+        "agentid" : 1000004,
         "textcard": {
             "title" : "打卡通知",
             "description" : f'<div class="normal">{today}</div><div class="highlight">打卡出错</div><div class="highlight">{msg}</div>',
@@ -110,7 +110,7 @@ def msg_template(msg):
     data = {
         "touser":"@all",
         "msgtype" : "textcard",
-        "agentid" : 1000005,
+        "agentid" : 1000004,
         "textcard": {
             "title" : "打卡通知",
             "description" : f'<div class="normal">{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</div><div class="highlight">{msg}</div>',
