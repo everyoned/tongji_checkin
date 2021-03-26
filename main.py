@@ -5,7 +5,7 @@ import argparse
 import sys
 
 def out(msg):
-    today = datetime.datetime.now()
+    today = datetime.datetime.now() + datetime.timedelta(hours=8)
     today = today.strftime("%Y-%m-%d %H:%M:%S")
     data = {
         "touser":"@all",
