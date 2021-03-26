@@ -113,7 +113,7 @@ def msg_template(msg):
         "agentid" : 1000004,
         "textcard": {
             "title" : "打卡通知",
-            "description" : f'<div class="normal">{(datetime.datetime.now() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}</div><div class="highlight">{msg}</div>',
+            "description" : f'<div class="normal">{(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}</div><div class="highlight">{msg}</div>',
             "url" : "https://",
             "btntxt":"更多"},
         }
