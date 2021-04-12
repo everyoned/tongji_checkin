@@ -135,9 +135,9 @@ if __name__ == "__main__":
     # 检查是否今日已打卡
     if ck.has_done():
         print("✅ 今日已打卡，无须重复打卡")
-        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'{ck.name[0]}同学已经自己打过卡啦~')))
+        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'小{ck.name[0]}同学已经自己打过卡啦~')))
     else:
         log = ck.checkin()
         print('✅ 打卡完成')
-        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为{ck.name[0]}同学打卡成功啦~')))
+        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为小{ck.name[0]}同学打卡成功啦~')))
         print(f'log: {log}')
