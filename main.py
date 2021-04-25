@@ -128,16 +128,20 @@ if __name__ == "__main__":
     now = f'[{(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")}]'
     print(now)
     print("用户信息：", args)
-    # 初始化打卡类
-    ck = Checkin(args.token, args.locLat, args.locLng)
-    # 获取基本信息以及上次数据
-    ck.get_info()
-    # 检查是否今日已打卡
-    if ck.has_done():
-        print("✅ 今日已打卡，无须重复打卡")
-        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'小{ck.name[0]}同学已经自己打过卡啦~')))
-    else:
-        log = ck.checkin()
-        print('✅ 打卡完成')
-        requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为小{ck.name[0]}同学打卡成功啦~')))
-        print(f'log: {log}')
+    try:
+        # 初始化打卡类
+        ck = Checkin(args.token, args.locLat, args.locLng)
+        # 获取基本信息以及上次数据
+        ck.get_info()
+        # 检查是否今日已打卡
+        if ck.has_done():
+            print("✅ 今日已打卡，无须重复打卡")
+            requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'小{ck.name[0]}同学已经自己打过卡啦~')))
+        else:
+            log = ck.checkin()
+            print('✅ 打卡完成')
+            requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为小{ck.name[0]}同学打卡成功啦~')))
+            print(f'log: {log}')
+    except:
+        out("快去瞅瞅吧，你家打卡机器人不听话了！")
+        
