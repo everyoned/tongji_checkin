@@ -129,7 +129,6 @@ if __name__ == "__main__":
     print(now)
     print("用户信息：", args)
     try:
-        raise ZeroDivisionError
         # 初始化打卡类
         ck = Checkin(args.token, args.locLat, args.locLng)
         # 获取基本信息以及上次数据
