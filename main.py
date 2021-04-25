@@ -129,6 +129,7 @@ if __name__ == "__main__":
     print(now)
     print("用户信息：", args)
     try:
+        raise ZeroDivisionError
         # 初始化打卡类
         ck = Checkin(args.token, args.locLat, args.locLng)
         # 获取基本信息以及上次数据
@@ -142,7 +143,6 @@ if __name__ == "__main__":
             print('✅ 打卡完成')
             requests.post("http://api.cblueu.cn/push/", data=json.dumps(msg_template(f'已为小{ck.name[0]}同学打卡成功啦~')))
             print(f'log: {log}')
-    raise ZeroDivisionError
     except:
         out("快去瞅瞅吧，你家打卡机器人不听话了！")
         
